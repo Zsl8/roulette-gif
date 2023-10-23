@@ -31,7 +31,7 @@ Join our support server for any question [HL Services](https://discord.gg/hSCbm4
 At first you need to [install the package](#installation)
 
 ```js
-const Wheel = require('roulette-gif')
+const { Wheel } = require('roulette-gif')
 const wheel = new Wheel()
 
 let slots = [

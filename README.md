@@ -36,12 +36,12 @@ const wheel = new Wheel()
 
 let slots = [
   {
-    name: "Zaid",
+    username: "Zaid",
     number: 1,
-    image: 'Some avatar url'
+    image: 'Some avatar url'  // Must be png or any supported image by canvas
   },
   {
-    name: "Ahmed",
+    username: "Ahmed",
     number: 2,
     image: 'Some avatar url'
   },
@@ -51,7 +51,7 @@ let {
   buffer, 
   winner, 
   lastFrame 
-} = wheel.createGif({
+} = await wheel.createGif({
   slots,
   stream: false, // Set it to true if you want to return stream insted of buffer
   wheelStroke: {

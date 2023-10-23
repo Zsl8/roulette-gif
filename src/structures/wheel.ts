@@ -164,8 +164,8 @@ class Wheel {
             let nameToDisplay = slots[i].username;
             let numberToDisplay = slots[i].number
 
+            if(!nameToDisplay) throw new Error('Slot name is required')
             if(!numberToDisplay) throw new Error('Slot number is required')
-            if(!nameToDisplay) throw new Error('Slot number is required')
 
             nameToDisplay = nameToDisplay.length > 7 ? nameToDisplay.slice(0, 6) + '..' : nameToDisplay
 

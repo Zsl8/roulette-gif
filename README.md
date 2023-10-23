@@ -66,6 +66,7 @@ let {
     color: '#fff',
     width: 5
   },
+  winnerSlotColor: 'Gold'
 })
 ```
 You can use the `buffer` to send the roulette gif or save it and if you want to get a `stream` insted of buffer you can use `stream: true`<br />
@@ -81,6 +82,7 @@ The `winner` variable returns the winner slot
 | wheelStroke | `false` | `{ width: 0, color: '#fff' }` | The stroke object of the wheel | `Object` |
 | slotStroke | `false` | `{ width: 0, color: '#fff' }` | The stroke object of the slot | `Object` |
 | imageStroke | `false` | `{ width: 0, color: '#fff' }` | The stroke object of the center image | `Object` |
+| winnerSlotColor | `false` | `Slot Color` | Change the winner slot color | `Color` |
 | text | `false` | `{ color: '#fff', size: 14 }` | The text options | `Object` |
 | arrow | `false` | `Simple arrow` | Use url image to change the wheel arrow | `URL Image` |
 

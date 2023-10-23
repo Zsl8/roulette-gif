@@ -36,7 +36,8 @@ export interface WheelInterface {
     slotStroke?: {
         width: number,
         color: string | '#000'
-    }
+    },
+    winnerSlotColor?: any
 }
 
 export interface CenterInterface {
@@ -80,6 +81,7 @@ export interface FullFrameInterface {
         size: number | 14
     },
     arrow?: string,
+    winnerSlotColor?: any
 }
 
 export interface CreateGifInterface {
@@ -109,4 +111,5 @@ export interface CreateGifInterface {
         size: number | 14
     },
     arrow?: string,
+    winnerSlotColor?: any
 }

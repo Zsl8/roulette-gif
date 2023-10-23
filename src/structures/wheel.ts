@@ -15,6 +15,7 @@ class Wheel {
         imageStroke,
         text,
         arrow,
+        winnerSlotColor
     }: CreateGifInterface) {
         const encoder = new GIFEncoder(420, 420);
         const encoderStream = encoder.createReadStream();
@@ -35,7 +36,7 @@ class Wheel {
 
             if (i - randomFrames < 50) {
                 if (i / 6 === Number((i / 6).toFixed(0))) {
-                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow })
+                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
                     encoder.setDelay(50)
                     encoder.addFrame(ctx);
@@ -44,7 +45,7 @@ class Wheel {
                 }
             } else if (i - randomFrames < 100) {
                 if (i / 4 === Number((i / 4).toFixed(0))) {
-                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow })
+                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
                     encoder.setDelay(40)
                     encoder.addFrame(ctx);
@@ -53,14 +54,14 @@ class Wheel {
                 }
             } else if (i - randomFrames < 150) {
                 if (Boolean(i % 2)) {
-                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow })
+                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
                     encoder.addFrame(ctx);
 
                     lastData = { winner, lastFrame: buffer }
                 }
             } else {
-                let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow })
+                let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
                 encoder.addFrame(ctx);
 
@@ -90,8 +91,9 @@ class Wheel {
         slotStroke,
         text,
         arrow,
+        winnerSlotColor
     }: FullFrameInterface) {
-        let { buffer: wheel, winner }: any = this.drawWheel({ frame, slots, wheelStroke, slotStroke, text })
+        let { buffer: wheel, winner }: any = this.drawWheel({ frame, slots, wheelStroke, slotStroke, text, winnerSlotColor })
         let { canvas, ctx }: any = await this.drawCenter({ wheel, winner, arrow })
 
         return {
@@ -101,7 +103,7 @@ class Wheel {
         }
     }
 
-    private drawWheel({ frame, slots, wheelStroke, slotStroke, text }: WheelInterface) {
+    private drawWheel({ frame, slots, wheelStroke, slotStroke, text, winnerSlotColor }: WheelInterface) {
         const canvas = createCanvas(420, 420);
         const ctx = canvas.getContext('2d');
 
@@ -143,10 +145,14 @@ class Wheel {
             ctx.arc(centerX, centerY, radius, angle, angle + slotWidth);
             ctx.closePath();
 
-            if (slots[i].color !== undefined) {
-                ctx.fillStyle = slots[i].color
+            if (winnerSlotColor && winningSlotIndex === i) {
+                ctx.fillStyle = winnerSlotColor
             } else {
-                ctx.fillStyle = i % 2 === 0 ? '#9e94fd' : '#867FD4'
+                if (slots[i].color !== undefined) {
+                    ctx.fillStyle = slots[i].color
+                } else {
+                    ctx.fillStyle = i % 2 === 0 ? '#9e94fd' : '#867FD4'
+                }
             }
 
             ctx.fill();
@@ -164,8 +170,8 @@ class Wheel {
             let nameToDisplay = slots[i].username;
             let numberToDisplay = slots[i].number
 
-            if(!nameToDisplay) throw new Error('Slot name is required')
-            if(!numberToDisplay) throw new Error('Slot number is required')
+            if (!nameToDisplay) throw new Error('Slot name is required')
+            if (!numberToDisplay) throw new Error('Slot number is required')
 
             nameToDisplay = nameToDisplay.length > 7 ? nameToDisplay.slice(0, 6) + '..' : nameToDisplay
 
@@ -264,7 +270,7 @@ class Wheel {
 
                 let weight;
 
-                if(width) {
+                if (width) {
                     weight = width * 8
                 } else {
                     weight = 40

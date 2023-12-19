@@ -31,10 +31,12 @@ class Wheel {
 
         slots = await this.drawImages({ slots, imageStroke })
 
-        for (var i = randomFrames; i < randomFrames + 200; i++) {
+        for (var i = randomFrames; i < randomFrames + 400; i++) {
             let frame = i * 3
 
-            if (i - randomFrames < 50) {
+            console.log(i - randomFrames)
+
+            if (i - randomFrames < 200) {
                 if (i / 6 === Number((i / 6).toFixed(0))) {
                     let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
@@ -43,7 +45,16 @@ class Wheel {
 
                     lastData = { winner, lastFrame: buffer }
                 }
-            } else if (i - randomFrames < 100) {
+            } else if (i - randomFrames < 230) {
+                if (i / 5 === Number((i / 5).toFixed(0))) {
+                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
+
+                    encoder.setDelay(40)
+                    encoder.addFrame(ctx);
+
+                    lastData = { winner, lastFrame: buffer }
+                }
+            } else if (i - randomFrames < 270) {
                 if (i / 4 === Number((i / 4).toFixed(0))) {
                     let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
@@ -52,7 +63,16 @@ class Wheel {
 
                     lastData = { winner, lastFrame: buffer }
                 }
-            } else if (i - randomFrames < 150) {
+            } else if (i - randomFrames < 300) {
+                if (i / 3 === Number((i / 3).toFixed(0))) {
+                    let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
+
+                    encoder.setDelay(40)
+                    encoder.addFrame(ctx);
+
+                    lastData = { winner, lastFrame: buffer }
+                }
+            } else if (i - randomFrames < 350) {
                 if (Boolean(i % 2)) {
                     let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })
 
@@ -171,7 +191,6 @@ class Wheel {
             let numberToDisplay = slots[i].number
 
             if (!nameToDisplay) throw new Error('Slot name is required')
-            if (!numberToDisplay) throw new Error('Slot number is required')
 
             nameToDisplay = nameToDisplay.length > 7 ? nameToDisplay.slice(0, 6) + '..' : nameToDisplay
 
@@ -194,7 +213,7 @@ class Wheel {
             ctx.save();
             ctx.translate(slotCenterX, slotCenterY);
             ctx.rotate(textAngle);
-            ctx.fillText(numberToDisplay + ' - ' + nameToDisplay, -20, 0);
+            ctx.fillText(numberToDisplay ? numberToDisplay + ' - ' + nameToDisplay : nameToDisplay, -20, 0);
             ctx.restore();
         }
 

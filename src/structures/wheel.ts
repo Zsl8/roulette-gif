@@ -34,8 +34,6 @@ class Wheel {
         for (var i = randomFrames; i < randomFrames + 400; i++) {
             let frame = i * 3
 
-            console.log(i - randomFrames)
-
             if (i - randomFrames < 200) {
                 if (i / 6 === Number((i / 6).toFixed(0))) {
                     let { ctx, buffer, winner }: any = await this.drawFullFrame({ frame, slots, wheelStroke, slotStroke, text, arrow, winnerSlotColor })

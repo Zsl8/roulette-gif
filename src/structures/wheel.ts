@@ -263,7 +263,7 @@ class Wheel {
 
         let background = await loadImage(wheel)
         ctx.drawImage(background, 0, 0);
-        ctx.drawImage(angle, canvas.width - 40, centerY - 30 / 2, 30, 30);
+        ctx.drawImage(angle, canvas.width - 57, centerY - 30 / 2, 30, 30);
 
         if (winner.ctxImage) {
             try {
